@@ -5,9 +5,8 @@ $redirect_type_selector = AppletInstance::getValue('redirect-type-selector');
 
 if ($redirect_type_selector == "flow")
 {
-	$gotoflow_raw = AppletInstance::getValue('gotoflow');
-	$gotoflow_url = site_url("/twiml/applet/voice/" . $gotoflow_raw . "/start");
-	
+	$gotoflow = AppletInstance::getValue('gotoflow');
+	$gotoflow_url = site_url("/twiml/applet/" . AppletInstance::getFlowType() . "/" . $gotoflow);
 	$response = new Response();
 	$response->addRedirect($gotoflow_url);
 	$response->Respond();
