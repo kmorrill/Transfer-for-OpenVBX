@@ -1,5 +1,5 @@
 $(function(){
-	$(".subflow-applet input[type=radio]").live('click', function(event) {
+	$('.subflow-applet input[type="radio"]').live('click', function(event) {
 		var tr = $(this).closest('tr');
 		
 		tr.closest('table').find('tr').each(function (index, element) {
