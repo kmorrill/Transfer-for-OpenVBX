@@ -1,28 +1,16 @@
 <?php
-$response = new Response();
+$response = new TwimlResponse;
 
 $redirect_type_selector = AppletInstance::getValue('redirect-type-selector');
 
-if ($redirect_type_selector == "flow")
-{
-	$gotoflow = AppletInstance::getValue('gotoflow');
-	$gotoflow_url = site_url("/twiml/applet/" . AppletInstance::getFlowType() . "/" . $gotoflow);
-	$response = new Response();
-	$response->addRedirect($gotoflow_url);
-	$response->Respond();
-	exit;
-}
-
-else if ($redirect_type_selector == "url")
-{
+if($redirect_type_selector == 'url') {
 	$gotourl = AppletInstance::getValue('gotourl');
-	$response = new Response();
-	$response->addRedirect($gotourl);
-	$response->Respond();
-	exit;
+	$response->redirect($gotourl);
+}
+else {
+	$gotoflow = AppletInstance::getValue('gotoflow');
+	$gotoflow_url = site_url('/twiml/applet/' . AppletInstance::getFlowType() . '/' . $gotoflow);
+	$response->redirect($gotoflow_url);
 }
 
-else
-{
-	trigger_error("Unexpected redirect-type-selector value of '$redirect_type_selector'");
-}
+$response->respond();
